@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+}
+
+#app {
+    width: 100%;
+    font-size: 16px;
+}
+
+.app-inner {
+    width: 80%;
+    margin: 0 auto;
+    height: 100vh;
+    font-size: 1em;
+    font-family: sans-serif;
+}
+
+/* ============= */
+/* pdf-container */
+/* ============= */
+.pdf-ctn {
+    width: 60%;
+    border-right: 10px solid grey;
+}
+
+.annotations-ctn {
+    width: 40%;
+}
