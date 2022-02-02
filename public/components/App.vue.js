@@ -39,7 +39,7 @@ const App = new Vue({
                     <pdf-frame
                     :pdfData="pdfData" 
                     :pdfPageNumber=1
-                    :pdfScale=1.2
+                    :pdfScale=1.15
                     />
                 </div>
             </div>

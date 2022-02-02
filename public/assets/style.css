@@ -45,12 +45,30 @@
     border: solid var(--color-violet)
 }
 
+/* pdf-frame component */
+/* =================== */
+.pdf-frame .canvas-ctn {
+    position: relative;
+}
+
+/* annotation drop component */
+/* ========================= */
+.annotation-drop {
+    background-color: var(--color-aqua);
+    position: absolute;
+    transition: var(--transition-fast);
+    opacity: 0;
+}
+
+.annotation-drop:hover {
+    opacity: 1;
+}
 
 /* annotations-container */
 /* ===================== */
 .annotations-ctn {
     width: 40%;
-    border-left: 7px solid var(--color-grey);
+    border-left: 5px solid var(--color-grey);
     position: relative;
 }
 
@@ -58,11 +76,11 @@
 .annotations-ctn::before, .annotations-ctn::after {
     content: '';
     position: absolute;
-    width: 21px;
-    height: 21px;
+    width: 17px;
+    height: 17px;
     border-radius: 50%;
     background-color: var(--color-grey);
-    left: -14px;
+    left: -11px;
 }
 
 .annotations-ctn::before {
@@ -70,5 +88,5 @@
 }
 
 .annotations-ctn::after {
-    bottom: 0;
+    bottom: -5px;
 }

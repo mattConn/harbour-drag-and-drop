@@ -1,4 +1,5 @@
 import { renderPDF, getPDFPage, getAnnotationRects } from "../pdfHandlers.js";
+import AnnotationDrop from "./AnnotationDrop.vue.js";
 
 const PDFFrame = Vue.component('pdf-frame', {
     props: ['pdfData', 'pdfScale', 'pdfPageNumber'],
@@ -18,7 +19,13 @@ const PDFFrame = Vue.component('pdf-frame', {
     },
     template: `<div class = "pdf-frame">
         <!-- display rendered pdf -->
-        <div id="canvas-ctn" ref="canvasCtn">
+        <div class="canvas-ctn" ref="canvasCtn">
+            <annotation-drop v-for="rect in annotationRects"
+            :xPos="rect.x"
+            :yPos="rect.y"
+            :width="rect.w"
+            :height="rect.h"
+            />
             <canvas id="pdf-canvas"></canvas>
         </div>
     </div>`

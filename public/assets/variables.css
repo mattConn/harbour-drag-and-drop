@@ -2,7 +2,8 @@
 :root {
     /* colors */
     --color-violet: rgb(90 94 209);
-    --color-grey:rgb(187, 187, 187);
+    --color-grey:rgb(196 207 217);
+    --color-aqua: rgb(136 215 207);
 
     /* padding */
     --padding-small: 1.25em;
