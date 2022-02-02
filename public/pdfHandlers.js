@@ -85,24 +85,20 @@ const markAnnotations = () => {
     })
 }
 
-// pdf upload handling
-// Uses FileReader to convert file data to byte array.
-// This byte array will then be read by pdfjs
-
-/*
-const upload = document.getElementById("upload");
-upload.addEventListener("change", () => {
-    const fileList = upload.files;
+/**
+ * 
+ * @param {*} pdfFile File from file input element
+ * @param {*} callback Callback to handle pdf byte array
+ */
+const readPDF = (pdfFile, callback = () => { }) => {
     const fileReader = new FileReader()
-
     fileReader.onload = () => {
+        // store fileReader result as byte array
         const pdfData = new Uint8Array(fileReader.result)
-
-        renderPDF(pdfData)
+        callback(pdfData)
     }
 
-    fileReader.readAsArrayBuffer(fileList[0])
-});
-*/
+    fileReader.readAsArrayBuffer(pdfFile)
+}
 
-export {renderPDF}
+export { renderPDF, readPDF }
