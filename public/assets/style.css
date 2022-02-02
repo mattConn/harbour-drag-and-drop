@@ -2,27 +2,73 @@
     box-sizing: border-box;
 }
 
-#app {
+.app-outer {
     width: 100%;
-    font-size: 16px;
+    display: flex;
+    justify-content: center;
 }
 
 .app-inner {
     width: 80%;
-    margin: 0 auto;
     height: 100vh;
-    font-size: 1em;
-    font-family: sans-serif;
 }
 
+.pdf-frame-ctn, .annotations-ctn {
+    height: 90%;
+}
+
+/* pdf-frame container */
 /* ============= */
-/* pdf-container */
-/* ============= */
-.pdf-ctn {
+.pdf-frame-ctn {
     width: 60%;
-    border-right: 10px solid grey;
+    overflow: auto;
 }
 
+@media (min-width: 1600px){
+    .pdf-frame-ctn {
+        overflow: hidden;
+    }
+}
+
+/* upload button */
+/* ------------- */
+.pdf-frame-ctn .upload-button {
+    margin-top: 10%;
+    padding: var(--padding-small);
+}
+.pdf-frame-ctn .upload-button .file-cta {
+    transition: var(--transition-fast);
+}
+.pdf-frame-ctn .upload-button .file-cta:hover {
+    background-color: white;
+    color: var(--color-violet);
+    border: solid var(--color-violet)
+}
+
+
+/* annotations-container */
+/* ===================== */
 .annotations-ctn {
     width: 40%;
+    border-left: 7px solid var(--color-grey);
+    position: relative;
+}
+
+/* line caps for left border*/
+.annotations-ctn::before, .annotations-ctn::after {
+    content: '';
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: var(--color-grey);
+    left: -14px;
+}
+
+.annotations-ctn::before {
+    top: -10px;
+}
+
+.annotations-ctn::after {
+    bottom: 0;
 }
