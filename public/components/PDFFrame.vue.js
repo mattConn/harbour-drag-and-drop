@@ -17,7 +17,7 @@ const PDFFrame = Vue.component('pdf-frame', {
         getPDFPage(this.pdfData, this.pdfPageNumber)
             .then((page) => {
                 getAnnotationRects(page, this.pdfScale).then(rects => this.annotationRects = rects)
-                renderPDF(page, 'pdf-canvas', this.pdfScale)
+                renderPDF(page, this.$refs.canvas, this.$refs.canvasCtn, this.pdfScale)
             })
     },
     template: `<div class = "pdf-frame">
@@ -32,7 +32,7 @@ const PDFFrame = Vue.component('pdf-frame', {
                 :height="rect.h"
                 />
             </draggable>
-            <canvas id="pdf-canvas"></canvas>
+            <canvas id="pdf-canvas" ref="canvas"></canvas>
         </div>
     </div>`
 })

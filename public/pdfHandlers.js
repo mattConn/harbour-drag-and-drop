@@ -1,5 +1,11 @@
 pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.worker.min.js"
 
+/**
+ * 
+ * @param {Uint8Array} pdfData PDF data byte array.
+ * @param {Number} pageNumber Number of page to get.
+ * @returns {Promise<Object>} Resolves to page object.
+ */
 const getPDFPage = (pdfData, pageNumber) => {
     //
     // Asynchronous download PDF
@@ -15,12 +21,12 @@ const getPDFPage = (pdfData, pageNumber) => {
 
 /**
  * 
- * @param {Uint8Array} pdfData Byte array of PDF. (May also be path or URL).
- * @param {String} canvasId ID of canvas element.
- * @param {Number} pdfScale Scaling factor of PDF.
- * @param {Function} callback Function to call after rendering of PDF.
+ * @param {Object} page Object representing single PDF page.
+ * @param {HTMLElement} canvas Canvas element to render page to.
+ * @param {HTMLElement} canvasCtn Container of canvas element. Used for overlay.
+ * @param {Number} pdfScale PDF scaling factor.
  */
-const renderPDF = (page, canvasId, pdfScale = 1) => {
+const renderPDF = (page, canvas, canvasCtn, pdfScale = 1) => {
     // This function is a modification of:
     // https://github.com/mozilla/pdf.js/blob/master/examples/learning/helloworld.html
     // It has been modified to highlight form fields.
@@ -33,13 +39,15 @@ const renderPDF = (page, canvasId, pdfScale = 1) => {
     //
     // Prepare canvas using PDF page dimensions
     //
-    const canvas = document.getElementById(canvasId);
     const context = canvas.getContext("2d");
 
     canvas.width = Math.floor(viewport.width * outputScale);
     canvas.height = Math.floor(viewport.height * outputScale);
     canvas.style.width = Math.floor(viewport.width) + 'px';
     canvas.style.height = Math.floor(viewport.height) + "px";
+
+    canvasCtn.style.width = canvas.style.width;
+    canvasCtn.style.height = canvas.style.height;
 
 
     const transform = outputScale !== 1
@@ -58,6 +66,12 @@ const renderPDF = (page, canvasId, pdfScale = 1) => {
     page.render(renderContext);
 }
 
+/**
+ * 
+ * @param {Object} page Object representing single PDF page.
+ * @param {Number} pdfScale PDF scaling factor.
+ * @returns {Promise<Object[]>} Resolves to array of rectangle objects containing position and dimensions.
+ */
 const getAnnotationRects = (page, pdfScale) => {
     const rects = []
 
@@ -88,11 +102,6 @@ const getAnnotationRects = (page, pdfScale) => {
     })
 }
 
-/**
- * 
- * @param {*} pdfFile File from file input element
- * @param {*} callback Callback to handle pdf byte array
- */
 const readPDF = (pdfFile, callback = () => { }) => {
     const fileReader = new FileReader()
     fileReader.onload = () => {
