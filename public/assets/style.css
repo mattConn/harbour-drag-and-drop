@@ -31,19 +31,16 @@
 }
 
 /* upload button */
-/* ------------- */
-.pdf-frame-ctn .upload-button {
-    margin-top: 10%;
-    padding: var(--padding-small);
-}
-.pdf-frame-ctn .upload-button .file-cta {
+/* ============= */
+/* .pdf-frame-ctn .upload-button .file-cta {
     transition: var(--transition-fast);
 }
+
 .pdf-frame-ctn .upload-button .file-cta:hover {
     background-color: white;
     color: var(--color-violet);
-    border: solid var(--color-violet)
-}
+    border: solid var(--color-violet);
+} */
 
 /* pdf-frame component */
 /* =================== */
@@ -57,11 +54,19 @@
     background-color: var(--color-aqua);
     position: absolute;
     transition: var(--transition-fast);
-    /* opacity: 0; */
+    opacity: 0;
 }
 
-.annotation-drop:hover {
+/* .annotation-drop:hover {
     opacity: 1;
+} */
+
+/* annotation drag component */
+/* ========================= */
+.annotation-drag {
+    border: solid var(--color-violet);
+    transition: var(--transition-fast);
+    margin: 0 auto;
 }
 
 /* annotations-container */
@@ -89,4 +94,9 @@
 
 .annotations-ctn::after {
     bottom: -5px;
+}
+
+/* hide vue-draggable ghost on drop */
+.sortable-ghost {
+    display: none;
 }

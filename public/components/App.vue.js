@@ -1,12 +1,21 @@
 import PDFFrame from "./PDFFrame.vue.js"
+import AnnotationDrag from "./AnnotationDrag.vue.js"
 import { readPDF, renderPDF } from "../pdfHandlers.js"
+
+Vue.use(vuedraggable)
 
 const App = new Vue({
     el: '#app',
     data(){
         return {
             pdfUploaded: false,
-            pdfData: null
+            pdfData: null,
+            annotations: ['Annotation'],
+            draggableGroup: {
+                name: 'annotations',
+                pull: 'clone',
+                put: false 
+            }
         }
     },
     methods: {
@@ -15,7 +24,13 @@ const App = new Vue({
                 this.pdfData = data
                 this.pdfUploaded = true
             })
-        }
+        },
+        onDragOver(event){
+            const element = event.related
+            if(element.classList.contains('annotation-drop')){
+                element.style.opacity = 1 
+            } 
+        },
     },
     template: `<div class="app-outer">
         <div class="app-inner columns is-vcentered is-mobile">
@@ -44,9 +59,19 @@ const App = new Vue({
                 </div>
             </div>
 
-
             <!-- selectable annotations -->
             <div class="annotations-ctn column">
+                <draggable
+                    :list="annotations"
+                    :move="onDragOver"
+                    :group="draggableGroup"
+                >
+                    <annotation-drag v-for="(annotation, i) in annotations"
+                    :key="i"
+                    :text="annotation"
+
+                    />
+                </draggable>
             </div>
         </div>
     </div>`

@@ -10,8 +10,7 @@ const AnnotationDrop = Vue.component('annotation-drop', {
             }
         }
     },
-    template: `<div class = "annotation-drop" v-bind:style="style">
-    </div>`
+    template: `<div class = "annotation-drop" v-bind:style="style"></div>`
 })
 
 export default AnnotationDrop 
