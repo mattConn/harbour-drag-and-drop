@@ -24,6 +24,7 @@ const App = new Vue({
             <div class="pdf-frame-ctn column is-7">
                 <div v-if="!pdfUploaded" class="upload-button file is-primary is-link is-size-4 is-centered">
                     <label class="file-label">
+                        <!-- file input -->
                         <input class="file-input" type="file" name="pdf" accepts="pdf" @change="uploadPDF">
                         <span class="file-cta">
                             <span class="file-label has-text-weight-medium">
@@ -35,7 +36,11 @@ const App = new Vue({
 
                 <!-- pdf has been uploaded, display pdf frame -->
                 <div v-else>
-                    <pdf-frame :pdfData="pdfData" />
+                    <pdf-frame
+                    :pdfData="pdfData" 
+                    :pdfPageNumber=1
+                    :pdfScale=1.2
+                    />
                 </div>
             </div>
 
