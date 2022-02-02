@@ -1,4 +1,6 @@
-const PDFContainer = Vue.component('pdf-container', {
+import { renderPDF } from "../pdfHandlers.js";
+
+const PDFFrame = Vue.component('pdf-frame', {
     data() {
         return {
             pdfLoaded: false,
@@ -6,11 +8,11 @@ const PDFContainer = Vue.component('pdf-container', {
     },
     template: `<div>
         <!-- display upload button -->
-        <div v-if="!pdfLoaded" class="upload file is-primary is-size-4">
+        <div v-if="!pdfLoaded" class="upload-button file is-primary is-link is-size-4 is-centered">
             <label class="file-label">
                 <input class="file-input" type="file" name="pdf">
-                <span class="file-cta" style="background-color: var(--color-violet);">
-                    <span class="file-label">
+                <span class="file-cta">
+                    <span class="file-label has-text-weight-medium">
                         Upload PDF
                     </span>
                 </span>
@@ -24,4 +26,4 @@ const PDFContainer = Vue.component('pdf-container', {
     </div>`
 })
 
-export default PDFContainer
+export default PDFFrame

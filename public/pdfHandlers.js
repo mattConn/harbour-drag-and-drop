@@ -5,7 +5,7 @@
  * @param {Number} pdfScale Scaling factor of PDF.
  * @param {Function} callback Function to call after rendering of PDF.
  */
-const handlePDF = (pdfData, canvasId, pdfScale, callback) => {
+const renderPDF = (pdfData, canvasId, pdfScale, callback) => {
     // This function is a modification of:
     // https://github.com/mozilla/pdf.js/blob/master/examples/learning/helloworld.html
     // It has been modified to highlight form fields.
@@ -89,6 +89,7 @@ const markAnnotations = () => {
 // Uses FileReader to convert file data to byte array.
 // This byte array will then be read by pdfjs
 
+/*
 const upload = document.getElementById("upload");
 upload.addEventListener("change", () => {
     const fileList = upload.files;
@@ -97,8 +98,11 @@ upload.addEventListener("change", () => {
     fileReader.onload = () => {
         const pdfData = new Uint8Array(fileReader.result)
 
-        handlePDF(pdfData)
+        renderPDF(pdfData)
     }
 
     fileReader.readAsArrayBuffer(fileList[0])
 });
+*/
+
+export {renderPDF}

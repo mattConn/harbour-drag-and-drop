@@ -1,3 +1,12 @@
+/* variables */
 :root {
-    --color-violet: rgb(90 94 209)
+    /* colors */
+    --color-violet: rgb(90 94 209);
+    --color-grey:rgb(187, 187, 187);
+
+    /* padding */
+    --padding-small: 1.25em;
+
+    /* transitions */
+    --transition-fast: 0.1s;
 }
