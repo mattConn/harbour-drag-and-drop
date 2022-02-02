@@ -3,6 +3,9 @@ import AnnotationDrop from "./AnnotationDrop.vue.js";
 
 const PDFFrame = Vue.component('pdf-frame', {
     props: ['pdfData', 'pdfScale', 'pdfPageNumber'],
+    components: {
+        draggable: window['draggable']
+    },
     data() {
         return {
             annotationRects: []
@@ -20,12 +23,15 @@ const PDFFrame = Vue.component('pdf-frame', {
     template: `<div class = "pdf-frame">
         <!-- display rendered pdf -->
         <div class="canvas-ctn" ref="canvasCtn">
-            <annotation-drop v-for="rect in annotationRects"
-            :xPos="rect.x"
-            :yPos="rect.y"
-            :width="rect.w"
-            :height="rect.h"
-            />
+            <draggable v-model="annotationRects" @start="drag=true" @end="drag=false">
+                <annotation-drop v-for="(rect, i) in annotationRects"
+                :key="i"
+                :xPos="rect.x"
+                :yPos="rect.y"
+                :width="rect.w"
+                :height="rect.h"
+                />
+            </draggable>
             <canvas id="pdf-canvas"></canvas>
         </div>
     </div>`
