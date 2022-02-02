@@ -5,7 +5,7 @@
  * @param {Number} pdfScale Scaling factor of PDF.
  * @param {Function} callback Function to call after rendering of PDF.
  */
-const renderPDF = (pdfData, canvasId, pdfScale, callback) => {
+const renderPDF = (pdfData, canvasId, pdfScale = 1, callback = () => { }) => {
     // This function is a modification of:
     // https://github.com/mozilla/pdf.js/blob/master/examples/learning/helloworld.html
     // It has been modified to highlight form fields.
@@ -25,7 +25,8 @@ const renderPDF = (pdfData, canvasId, pdfScale, callback) => {
         // Fetch the first page
         //
         const page = await pdf.getPage(1);
-        const viewport = page.getViewport({ pdfScale });
+        const viewport = page.getViewport({ scale: pdfScale });
+        console.log(viewport)
         // Support HiDPI-screens.
         const outputScale = window.devicePixelRatio || 1;
 
@@ -37,8 +38,9 @@ const renderPDF = (pdfData, canvasId, pdfScale, callback) => {
 
         canvas.width = Math.floor(viewport.width * outputScale);
         canvas.height = Math.floor(viewport.height * outputScale);
-        canvas.style.width = Math.floor(viewport.width) + "px";
+        canvas.style.width = Math.floor(viewport.width) + 'px';
         canvas.style.height = Math.floor(viewport.height) + "px";
+
 
         const transform = outputScale !== 1
             ? [outputScale, 0, 0, outputScale, 0, 0]
@@ -53,10 +55,7 @@ const renderPDF = (pdfData, canvasId, pdfScale, callback) => {
             viewport,
         };
         page.render(renderContext);
-
-        if (callback) {
-            callback(pdfData)
-        }
+        callback(pdfData)
     })();
 }
 

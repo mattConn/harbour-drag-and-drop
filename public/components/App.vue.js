@@ -1,20 +1,24 @@
 import PDFFrame from "./PDFFrame.vue.js"
-import { readPDF } from "../pdfHandlers.js"
+import { readPDF, renderPDF } from "../pdfHandlers.js"
 
 const App = new Vue({
     el: '#app',
     data(){
         return {
-            pdfUploaded: false
+            pdfUploaded: false,
+            pdfData: null
         }
     },
     methods: {
         uploadPDF(){
-            readPDF(event.target.files[0], (data) => console.log(data))
+            readPDF(event.target.files[0], (data) => {
+                this.pdfData = data
+                this.pdfUploaded = true
+            })
         }
     },
-    template: `<div class="app-outer ">
-        <div class="app-inner columns is-vcentered">
+    template: `<div class="app-outer">
+        <div class="app-inner columns is-vcentered is-mobile">
             <!-- pdf upload button -->
             <!-- display if pdf is not uploaded -->
             <div class="pdf-frame-ctn column is-7">
@@ -28,12 +32,13 @@ const App = new Vue({
                         </span>
                     </label>
                 </div>
+
+                <!-- pdf has been uploaded, display pdf frame -->
+                <div v-else>
+                    <pdf-frame :pdfData="pdfData" />
+                </div>
             </div>
 
-            <!-- pdf has been uploaded, display pdf frame -->
-            <div v-else>
-                <pdf-frame />
-            </div>
 
             <!-- selectable annotations -->
             <div class="annotations-ctn column">
