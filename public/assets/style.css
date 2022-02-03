@@ -54,7 +54,12 @@
     background-color: var(--color-aqua);
     position: absolute;
     transition: var(--transition-fast);
-    opacity: 0;
+    /* opacity: 0; */
+}
+
+.annotation-drop.is-filled {
+    background-color: var(--color-violet);
+    color: white;
 }
 
 /* .annotation-drop:hover {

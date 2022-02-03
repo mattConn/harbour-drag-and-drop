@@ -26,9 +26,13 @@ const App = new Vue({
             })
         },
         onDragOver(event){
-            const element = event.related
-            if(element.classList.contains('annotation-drop')){
-                element.style.opacity = 1 
+            console.log(event)
+            const dropElement = event.related
+            const dragElement = event.dragged
+
+            if(dropElement.classList.contains('annotation-drop')){
+                dropElement.style.opacity = 1 
+                dragElement.style.width = dropElement.width
             } 
         },
     },

@@ -1,3 +1,5 @@
+import {Rect} from './helpers.js';
+
 pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.worker.min.js"
 
 /**
@@ -88,13 +90,8 @@ const getAnnotationRects = (page, pdfScale) => {
                 // Normalization ensures this ordering.
                 // Note that origin of coordinate system is in bottom-left.
                 const rect = pdfjsLib.Util.normalizeRect(item.rect)
-                const newRect = {
-                    x: rect[0] * pdfScale,
-                    y: rect[1] * pdfScale,
-                    w: (rect[2] - rect[0]) * pdfScale,
-                    h: (rect[3] - rect[1]) * pdfScale
+                const newRect = new Rect(rect[0] * pdfScale, rect[1] * pdfScale, (rect[2] - rect[0]) * pdfScale, (rect[3] - rect[1]) * pdfScale)
 
-                }
                 rects.push(newRect)
             }
             resolve(rects)
