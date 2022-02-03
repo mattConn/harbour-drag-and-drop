@@ -51,20 +51,23 @@
 /* annotation drop component */
 /* ========================= */
 .annotation-drop {
-    background-color: var(--color-aqua);
     position: absolute;
     transition: var(--transition-fast);
-    /* opacity: 0; */
 }
 
 .annotation-drop.is-filled {
-    background-color: var(--color-violet);
-    color: white;
+    background-color: var(--color-violet-light);
+    border: solid 2px var(--color-violet);
+    cursor: move;
 }
 
-/* .annotation-drop:hover {
-    opacity: 1;
-} */
+.annotation-drop.is-filled span {
+    font-size: 14px;
+    color: white;
+    position: absolute;
+    top: -3px;
+    font-weight: 500;
+}
 
 /* annotation drag component */
 /* ========================= */

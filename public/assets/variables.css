@@ -2,6 +2,7 @@
 :root {
     /* colors */
     --color-violet: rgb(90 94 209);
+    --color-violet-light: rgb(145 148 235);
     --color-grey:rgb(196 207 217);
     --color-aqua: rgb(136 215 207);
 
@@ -10,4 +11,8 @@
 
     /* transitions */
     --transition-fast: 0.1s;
+}
+
+.bg-aqua {
+    background-color: var(--color-aqua);
 }
