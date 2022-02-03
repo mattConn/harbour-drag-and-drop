@@ -20,6 +20,11 @@ const PDFFrame = Vue.component('pdf-frame', {
                 this.annotations[added.newIndex] = new Annotation('Auto-placed Annotation', true, this.annotations[added.newIndex+1].rect)
             }
         },
+        onDropIn(value){
+            const mutated = this.annotations[value.index]
+            mutated.isFilled = value.isFilled
+            mutated.text = value.text
+        }
     },
     mounted() {
         // Get and render page on mount,
@@ -36,21 +41,17 @@ const PDFFrame = Vue.component('pdf-frame', {
     template: `<div class = "pdf-frame columns is-centered">
         <!-- display rendered pdf -->
         <div class="canvas-ctn" ref="canvasCtn">
-            <draggable 
-            :list="annotations"
-            :group="draggableGroup"
-            @change="onChange"
-            >
-                <annotation-drop v-for="(annotation, i) in annotations"
-                :key="i"
-                :xPos="annotation.rect.x"
-                :yPos="annotation.rect.y"
-                :width="annotation.rect.w"
-                :height="annotation.rect.h"
-                :text="annotation.text"
-                :isFilled="annotation.isFilled"
-                />
-            </draggable>
+            <annotation-drop v-for="(annotation, i) in annotations"
+            :key="i"
+            :index="i"
+            :xPos="annotation.rect.x"
+            :yPos="annotation.rect.y"
+            :width="annotation.rect.w"
+            :height="annotation.rect.h"
+            :text="annotation.text"
+            :isFilled="annotation.isFilled"
+            @droppedIn="onDropIn"
+            />
             <canvas id="pdf-canvas" ref="canvas"></canvas>
         </div>
     </div>`
