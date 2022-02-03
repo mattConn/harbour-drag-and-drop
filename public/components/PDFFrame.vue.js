@@ -14,12 +14,6 @@ const PDFFrame = Vue.component('pdf-frame', {
         }
     },
     methods: {
-        onChange({ added }){
-            if(added){
-                this.annotations.splice(added.newIndex,1)
-                this.annotations[added.newIndex] = new Annotation('Auto-placed Annotation', true, this.annotations[added.newIndex+1].rect)
-            }
-        },
         onDropIn(value){
             const mutated = this.annotations[value.index]
             mutated.isFilled = value.isFilled

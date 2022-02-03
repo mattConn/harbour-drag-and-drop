@@ -14,7 +14,6 @@ When deploying, serve `public`. There are no build steps, all libraries are load
 - **PDF.js** for PDF reading and rendering
 
 ## File Structure
-Each file (within `public`) will be elaborated on in its own section.
 - **assets/** contains css stylesheets.
 - **components/** contains Vue components as JS files.
 - **helpers.js** defines helper classes for working with PDF annotations.
@@ -44,7 +43,7 @@ The program entry point (like a main.js or index.js), and is the only non-vendor
 - annotations `string[]`
 	- Text data for draggable annotations. Has a single value hard-coded in for demo.
 - draggableGroup `object`
-	- Object containing data for VueDraggable components
+	- Object containing data for VueDraggable components.
 
 
 ### Methods
@@ -59,5 +58,15 @@ The program entry point (like a main.js or index.js), and is the only non-vendor
 
 
 
-### PDFFrame
-###
+## PDFFrame
+Contains canvas for rendered pdf, as well as VueDraggable annotation drop zones.
+
+### Data
+- annotations `Annotation[]`
+	- Array of Annotation objects (defined in helpers.js) used for annotation drop zones over rendered pdf. Each object contains position and text data.
+- draggableGroup `object`
+	- Object containing data for VueDraggable components.
+
+### Methods
+- onDropIn(value)
+	- Called when an AnnotationDrop component emits a droppedIn event (when an annotation has been successfully dragged and dropped). This will update the appropriate annotation drop zone with an `isFilled` boolean and the dropped annotation's text. (The text "Auto-filled Annotation" will be displayed instead for demo).
