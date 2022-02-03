@@ -1,14 +1,57 @@
-import { renderPDF } from "../pdfHandlers.js";
+import { renderPDF, getPDFPage, getAnnotationRects } from "../pdfHandlers.js";
+import { Annotation, Rect } from "../helpers.js";
+import AnnotationDrop from "./AnnotationDrop.vue.js";
 
 const PDFFrame = Vue.component('pdf-frame', {
-    props: ['pdfData'],
-    mounted(){
-        renderPDF(this.pdfData, 'pdf-canvas', 1.2)
+    props: ['pdfData', 'pdfScale', 'pdfPageNumber'],
+    data(){
+        return {
+            annotations: [],
+            draggableGroup: {
+                name: 'annotations',
+                put: true 
+            }
+        }
     },
-    template: `<div class = "pdf-frame">
+    methods: {
+        onChange({ added }){
+            if(added){
+                this.annotations.splice(added.newIndex,1)
+                this.annotations[added.newIndex] = new Annotation('Auto-placed Annotation', true, this.annotations[added.newIndex+1].rect)
+            }
+        },
+    },
+    mounted() {
+        // Get and render page on mount,
+        // storing annotation rectangles.
+        getPDFPage(this.pdfData, this.pdfPageNumber)
+            .then((page) => {
+                getAnnotationRects(page, this.pdfScale).then(rects => {
+                    this.$emit('parsedFields', rects.length)
+                    this.annotations = rects.map(r => new Annotation('',false,r))
+                })
+                renderPDF(page, this.$refs.canvas, this.$refs.canvasCtn, this.pdfScale)
+            })
+    },
+    template: `<div class = "pdf-frame columns is-centered">
         <!-- display rendered pdf -->
-        <div id="canvas-ctn">
-            <canvas id="pdf-canvas"></canvas>
+        <div class="canvas-ctn" ref="canvasCtn">
+            <draggable 
+            :list="annotations"
+            :group="draggableGroup"
+            @change="onChange"
+            >
+                <annotation-drop v-for="(annotation, i) in annotations"
+                :key="i"
+                :xPos="annotation.rect.x"
+                :yPos="annotation.rect.y"
+                :width="annotation.rect.w"
+                :height="annotation.rect.h"
+                :text="annotation.text"
+                :isFilled="annotation.isFilled"
+                />
+            </draggable>
+            <canvas id="pdf-canvas" ref="canvas"></canvas>
         </div>
     </div>`
 })

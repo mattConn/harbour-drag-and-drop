@@ -24,6 +24,10 @@
     overflow: auto;
 }
 
+.pdf-frame-ctn .message-bar {
+    height: 10%;
+}
+
 @media (min-width: 1600px){
     .pdf-frame-ctn {
         overflow: hidden;
@@ -31,38 +35,78 @@
 }
 
 /* upload button */
-/* ------------- */
-.pdf-frame-ctn .upload-button {
-    margin-top: 10%;
-    padding: var(--padding-small);
-}
-.pdf-frame-ctn .upload-button .file-cta {
+/* ============= */
+/* .pdf-frame-ctn .upload-button .file-cta {
     transition: var(--transition-fast);
 }
+
 .pdf-frame-ctn .upload-button .file-cta:hover {
     background-color: white;
     color: var(--color-violet);
-    border: solid var(--color-violet)
+    border: solid var(--color-violet);
+} */
+
+/* pdf-frame component */
+/* =================== */
+.pdf-frame .canvas-ctn {
+    position: relative;
 }
 
+/* annotation drop component */
+/* ========================= */
+.annotation-drop {
+    position: absolute;
+    transition: var(--transition-fast);
+}
+
+.annotation-drop.is-filled {
+    background-color: var(--color-violet-light);
+    border: solid 2px var(--color-violet);
+    cursor: move;
+}
+
+.annotation-drop.is-filled span {
+    font-size: 14px;
+    color: white;
+    position: absolute;
+    top: -3px;
+    font-weight: 500;
+}
+
+/* annotation drag component */
+/* ========================= */
+.annotation-drag {
+    border: solid var(--color-violet);
+    transition: var(--transition-fast);
+    margin: 0 auto;
+}
+
+.annotation-drag:hover {
+    color: initial !important;
+    background-color: initial !important;
+}
 
 /* annotations-container */
 /* ===================== */
 .annotations-ctn {
     width: 40%;
-    border-left: 7px solid var(--color-grey);
+    border-left: 5px solid var(--color-grey);
     position: relative;
+}
+
+.annotations-ctn .spacer {
+    height: 10%;
 }
 
 /* line caps for left border*/
 .annotations-ctn::before, .annotations-ctn::after {
     content: '';
     position: absolute;
-    width: 21px;
-    height: 21px;
+    width: 17px;
+    height: 17px;
     border-radius: 50%;
     background-color: var(--color-grey);
-    left: -14px;
+    left: -11px;
 }
 
 .annotations-ctn::before {
@@ -70,5 +114,10 @@
 }
 
 .annotations-ctn::after {
-    bottom: 0;
+    bottom: -5px;
+}
+
+/* hide vue-draggable ghost on drop */
+.sortable-ghost {
+    display: none;
 }
