@@ -24,6 +24,10 @@
     overflow: auto;
 }
 
+.pdf-frame-ctn .message-bar {
+    height: 10%;
+}
+
 @media (min-width: 1600px){
     .pdf-frame-ctn {
         overflow: hidden;
@@ -83,6 +87,10 @@
     width: 40%;
     border-left: 5px solid var(--color-grey);
     position: relative;
+}
+
+.annotations-ctn .spacer {
+    height: 10%;
 }
 
 /* line caps for left border*/

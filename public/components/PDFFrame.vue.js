@@ -28,12 +28,13 @@ const PDFFrame = Vue.component('pdf-frame', {
         getPDFPage(this.pdfData, this.pdfPageNumber)
             .then((page) => {
                 getAnnotationRects(page, this.pdfScale).then(rects => {
+                    this.$emit('parsedFields', rects.length)
                     this.annotations = rects.map(r => new Annotation('',false,r))
                 })
                 renderPDF(page, this.$refs.canvas, this.$refs.canvasCtn, this.pdfScale)
             })
     },
-    template: `<div class = "pdf-frame">
+    template: `<div class = "pdf-frame columns is-centered">
         <!-- display rendered pdf -->
         <div class="canvas-ctn" ref="canvasCtn">
             <draggable 
